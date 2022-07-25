@@ -8,12 +8,21 @@ public class VirtualKeyForYourRepositories {
 	static File folder = new File("C:\\Users\\ranga\\OneDrive\\Desktop\\root\\Java_Full_Stack_Developer\\Project1");
 	// Just one scanner is used along the application
 	static Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
-
-
-
 	// Get All files using a for loop
-
-	public static void getAllFiles_forLoop() {
+	public static void listAllFiles_Asc() {
+		if(folder.isDirectory()){
+			//System.out.println("The file check is correct");
+			List<String> listFile = Arrays.asList(folder.list());
+			Collections.sort(listFile);
+			System.out.println("---------------------------------------");
+			//System.out.println("Sorting by filename in ascending order");
+			for(String s:listFile){
+				System.out.println(s);
+			}
+			System.out.println("---------------------------------------");
+		}
+	}
+	/*public static void getAllFiles_forLoop() {
 		//System.out.println("---> getAllFiles_forLoop");
 		//Name of files are stored in an array
 		File[] listOfFiles = folder.listFiles();
@@ -111,7 +120,7 @@ public class VirtualKeyForYourRepositories {
 			PrintMessage("Error: file not found");
 		}
 	}
-
+	 */
 	public static void deleteFile(Scanner scannerdelete) {
 		try {
 			//Read the name of the file to delete
@@ -123,7 +132,7 @@ public class VirtualKeyForYourRepositories {
 				PrintMessage("File deleted successfully.");
 			} else {
 				//On error
-				PrintMessage("The mentioned file was not found. It may be deleted was not found to delete");
+				PrintMessage("The mentioned file was not found. It may be deleted or the file was not found to delete");
 			}
 			//On error an exception is raised
 		} catch (Exception e) {
@@ -184,13 +193,11 @@ public class VirtualKeyForYourRepositories {
 		System.out.println("****************************************************");
 		System.out.println("************* Welcome to LockedMe.com****************");
 		System.out.println("****************************************************");
-		System.out.println("*********** Developed by Rangaraj************");
+		System.out.println("************** Developed by Rangaraj************");
 		System.out.println("****************************************************");
 		System.out.println(" 1) Display all the files");
-		System.out.println(" 2) Add a new file ");
-		System.out.println(" 3) Delete an existing file ");
-		System.out.println(" 4) Search a file ");
-		System.out.println(" 5) Exit "); 
+		System.out.println(" 2) Display menu for file operations");
+		System.out.println(" 3) Exit from the Application "); 
 		System.out.println("");
 		System.out.println(" > Select an option...");
 	}
@@ -217,54 +224,56 @@ public class VirtualKeyForYourRepositories {
 				// Choose the option selected by user
 				switch (receivedInput) {
 				case 1: {
-					//All files are painted on screen
-					Random random = new Random();
-					int rn = random.nextInt(6) + 1;
-					switch (rn) {
-					case 1:
-						// Get all files using a for loop
-						getAllFiles_forLoop();
-						break;
-					case 2:
-						// Get all files using a while loop
-						getAllFiles_while();
-						break;
-					case 3:
-						// Get all files using a for each loop
-						getAllFiles_forEachLoop();
-						break;
-					case 4:
-						// Get all files using an iterator of a linked list
-						getAllFiles_Iterator();
-						break;
-					case 5:
-						// Get all files using an iterator of a linked list
-						getAllFiles_LambdaExpression();
-						break;
-					case 6:
-						// Get all files using the Enumeration Interface
-						getAllFiles_EnumerationInterface();
-						break;
+					listAllFiles_Asc();
+					break;
+				}
+				case 2:{
+					boolean iExit = false;
+
+					while (!iExit) {
+
+						try {
+							System.out.println("");
+							System.out.println(" 1) Add a new file ");
+							System.out.println(" 2) Delete an existing file ");
+							System.out.println(" 3) Search a file ");
+							System.out.println(" 4) Go to Main Menu "); 
+							int givenInput = Integer.parseInt(scanner.nextLine());
+							switch(givenInput) {
+							case 1: {
+								//User defines name and contents of a new file
+								createFile(scanner);
+								break;
+							}
+							case 2: {
+								//User chooses a file to delete
+								deleteFile(scanner);
+								break;
+							}
+							case 3: {
+								//Determine is a file exists
+								searchFiles(scanner);
+								break;
+							}
+							case 4: {
+								System.out.println("\n ->Going to Main Menu");
+								iExit = true;
+								break;
+							}
+							default: {
+								//On error the program ends
+								iExit = true;
+							}
+							}
+						}catch(NumberFormatException e) {
+							PrintMessage("Please print only numbers");
+						}
 					}
 					break;
 				}
-				case 2: {
-					//User defines name and contents of a new file
-					createFile(scanner);
-					break;
-				}
 				case 3: {
-					//User chooses a file to delete
-					deleteFile(scanner);
-					break;
-				}
-				case 4: {
-					//Determine is a file exists
-					searchFiles(scanner);
-					break;
-				}
-				case 5: {
 					//Exit the program
+					System.out.println("******Application Closed******");
 					bExit = true;
 					break;
 				}
@@ -278,5 +287,4 @@ public class VirtualKeyForYourRepositories {
 			}
 		}
 	}
-
 }
