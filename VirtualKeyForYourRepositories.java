@@ -212,7 +212,7 @@ public class VirtualKeyForYourRepositories {
 		//Boolean to identify if the loop continues or not
 		boolean bExit = false;
 		// Option Selected
-		Integer receivedInput = 0;
+		Integer receivedInput =0;
 		// Exits when user selects option 5
 		while (!bExit) {
 			// The menu is painted on screen
@@ -222,6 +222,7 @@ public class VirtualKeyForYourRepositories {
 				receivedInput = Integer.parseInt(scanner.nextLine());
 				PrintMessage(" > Selected: " + receivedInput);
 				// Choose the option selected by user
+				if(receivedInput<4 & receivedInput>0) {
 				switch (receivedInput) {
 				case 1: {
 					listAllFiles_Asc();
@@ -235,10 +236,11 @@ public class VirtualKeyForYourRepositories {
 						try {
 							System.out.println("");
 							System.out.println(" 1) Add a new file ");
-							System.out.println(" 2) Delete an existing file ");
+							System.out.println(" 2) Delete an existing file or Folder ");
 							System.out.println(" 3) Search a file ");
 							System.out.println(" 4) Go to Main Menu "); 
 							int givenInput = Integer.parseInt(scanner.nextLine());
+							if(givenInput<5 & givenInput>0) {
 							switch(givenInput) {
 							case 1: {
 								//User defines name and contents of a new file
@@ -265,8 +267,12 @@ public class VirtualKeyForYourRepositories {
 								iExit = true;
 							}
 							}
+							}
+							else {
+								System.out.println("## Error : Please give the  correct number");
+							}
 						}catch(NumberFormatException e) {
-							PrintMessage("Please print only numbers");
+							PrintMessage("## Error : Please print only numbers");
 						}
 					}
 					break;
@@ -282,9 +288,14 @@ public class VirtualKeyForYourRepositories {
 					bExit = true;
 				}
 				}
+				}
+				else {
+					System.out.println("## Error : Please give the correct number");
+				}
 			}catch(NumberFormatException e){
-				PrintMessage("Please print only numbers");
+				PrintMessage(" Error : Please print only numbers");
 			}
+			
 		}
 	}
 }
